@@ -1,0 +1,83 @@
+# IMPORTS DE LIBRERIAS
+import subprocess
+import os
+import psutil 
+#libreria que permite obtener informacion de los procesos en el sistema operativo, puedes instalarla con pip install psutil
+
+# IMPORTS DE MODULOS
+
+# VARIABLES
+
+
+
+
+
+#FUNCIONES
+
+def run(cmd, check=True): # funcion para ejecutar comandos en la terminal Uso: run("ls -l")
+    return subprocess.run(cmd, shell=True, check=check, capture_output=True, text=True)
+
+def kill_process(pid):
+    run(f"kill {pid}")
+
+
+def analizar_processos():
+    print("Listado de procesos")
+
+    for procesos in psutil.process_iter(['pid','name','status'])
+        try: #
+            #variables
+            pid = procesos.info['pid']
+            nombre = procesos.info['name']
+            estado = procesos.info['status']
+            zombie = [] # para guardar los PID de los procesos zombie
+
+            print(f"PID:{pid}")
+            print(f"nombre:{nombre}")
+            print(f"estado:{estado}")
+
+            if estado == psutil.STATUS_ZOMBIE: #en el caso de un proceso zombie se guarde el PID en ls variable zombie
+                zombie.append(pid)
+        except (psutil.NosuchProcess, psutil.AccessDenied): #He puesto esto para que si pasa estos errores especificos el programa se mantenga funcionando
+            continue
+  
+    if zombie : #Para listar los procesos zombies que se encuentren
+        print("Hay uno o más procesos zombies ")
+        print(zombie)
+
+        eliminacion = input("¿Quieres eliminar los procesos zombies? (s/n):") #Para dar la opción de automaticamente eliminar los procesos zombie con el programa
+
+        if eliminacion.lower() == "s": 
+            for pid in zombie:
+                kill_process(pid)
+        elif eliminacion.lower == "n":
+            print("")
+        else:
+            eliminacion = input("repite la respuesta solo con (s/n):")
+    else:
+        print("no hay ningún proceso zombie")
+
+
+
+
+def main(): # Aqui llamas todas las funciones  y haces toda la logica 
+    while True: #este bucle sera para mantener el menu hasta que pulses 3 para salir
+        print("Gestor de procesos")
+        print("1. Listar los procesos")
+        print("2. Matar un proceso")
+        print("3. Salir")
+
+        opcion =input("selecciona una opción")
+        if opcion == 1:
+            analizar_processos()
+        elif opcion == 2:
+            kill_process(pid)
+        elif opcion == 3:
+            break
+        else:
+            print("opción incorrecta")
+
+
+
+if __name__ == "__main__":
+    main() #NO TOQUES ESTO
