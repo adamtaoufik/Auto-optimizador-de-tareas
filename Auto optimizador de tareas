@@ -63,19 +63,20 @@ def analizar_processos():
 def main(): # Aqui llamas todas las funciones  y haces toda la logica 
     while True: #este bucle sera para mantener el menu hasta que pulses 3 para salir
         print("Gestor de procesos")
-        print("1. Listar los procesos")
+        # Las opciones
+        print("1. Listar los procesos") 
         print("2. Matar un proceso")
         print("3. Salir")
 
-        opcion =input("selecciona una opción")
-        if opcion == 1:
-            analizar_processos()
-        elif opcion == 2:
+        opcion =input("selecciona una opción") #para seleccionar lo que quiere hacer el usuario
+        if opcion == 1: #para listar los procesos
+            analizar_processos() 
+        elif opcion == 2: #para eliminar los procesos
             kill_process(pid)
-        elif opcion == 3:
+        elif opcion == 3: #para salirse 
             break
         else:
-            print("opción incorrecta")
+            print("opción incorrecta") #por si ponen otro respuesta que no sea 1,2 o 3
 
 
 
